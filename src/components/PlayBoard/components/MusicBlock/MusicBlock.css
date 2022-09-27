@@ -1,0 +1,16 @@
+.musicBlock {
+    background-color: #004e8f;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    box-shadow: 5px 5px 5px black;
+    font-size: 4em;
+}
+
+.musicBlock:hover {
+    transform: scale(1.01);
+    transition-duration: 0.1s;
+    background-color: #61dafb;
+}

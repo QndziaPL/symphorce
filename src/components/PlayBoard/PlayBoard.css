@@ -1,0 +1,7 @@
+.playBoard {
+    display: grid;
+    grid-auto-rows: auto;
+    height: 600px;
+    gap: 10px;
+    padding: 10px;
+}
