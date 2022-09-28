@@ -2,7 +2,6 @@ import { FC, useCallback, useEffect, useState } from "react";
 import "./PlayBoard.css";
 import { MusicBlockComponent } from "./components/MusicBlock/MusicBlockComponent";
 import * as Tone from "tone";
-import { composition1 } from "../../compositions/testCompositions";
 
 export type EvenLengthMusicBlockArray =
   | [MusicBlock, MusicBlock, MusicBlock, MusicBlock]
@@ -114,18 +113,7 @@ export const PlayBoard: FC<PlayBoardProps> = ({ composition }) => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
-
-  useEffect(() => {
-    if (
-      keyboardKeysPressed.length &&
-      keyboardKeysPressed.filter((key) => KeyboardKeys.includes(key)).length
-    ) {
-      keyboardKeysPressed.forEach((key) => {
-        playSingleBlock(KeyboardKeys.indexOf(key), 500);
-      });
-    }
-  }, [keyboardKeysPressed]);
+  }, [handleKeyDown, handleKeyUp]);
 
   const playSingleBlock = useCallback(
     (index: number, soundBlockDuration: number) => {
@@ -141,8 +129,19 @@ export const PlayBoard: FC<PlayBoardProps> = ({ composition }) => {
         });
       }, soundBlockDuration);
     },
-    [composition.id, composition.musicBlocks]
+    [composition]
   );
+
+  useEffect(() => {
+    if (
+      keyboardKeysPressed.length &&
+      keyboardKeysPressed.filter((key) => KeyboardKeys.includes(key)).length
+    ) {
+      keyboardKeysPressed.forEach((key) => {
+        playSingleBlock(KeyboardKeys.indexOf(key), 500);
+      });
+    }
+  }, [keyboardKeysPressed, playSingleBlock]);
 
   return (
     <div

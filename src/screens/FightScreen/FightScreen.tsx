@@ -1,7 +1,4 @@
-import {
-  EvenLengthMusicBlockArray,
-  PlayBoard,
-} from "../../components/PlayBoard/PlayBoard";
+import { PlayBoard } from "../../components/PlayBoard/PlayBoard";
 import { ScreenWrapper } from "../ScreenWrapper/ScreenWrapper";
 import { composition1 } from "../../compositions/testCompositions";
 
