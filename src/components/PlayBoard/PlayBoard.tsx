@@ -2,10 +2,7 @@ import { FC, useCallback, useEffect, useState } from "react";
 import "./PlayBoard.css";
 import { MusicBlockComponent } from "./components/MusicBlock/MusicBlockComponent";
 import * as Tone from "tone";
-
-export interface MusicBlock {
-  id: number;
-}
+import { composition1 } from "../../compositions/testCompositions";
 
 export type EvenLengthMusicBlockArray =
   | [MusicBlock, MusicBlock, MusicBlock, MusicBlock]
@@ -33,12 +30,23 @@ export type EvenLengthMusicBlockArray =
       MusicBlock
     ];
 
-interface PlayBoardProps {
-  // melody: any
+export interface MusicBlock {
+  id: number;
+  melody: Melody;
+  duration: number;
+}
+
+export interface Composition {
   musicBlocks: EvenLengthMusicBlockArray;
+  id: number;
+}
+
+interface PlayBoardProps {
+  composition: Composition;
 }
 
 export const KeyboardKeys = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];
+
 export enum BaseNotes {
   C4,
   D4,
@@ -57,12 +65,14 @@ export enum BaseNotes {
 export interface TriggerAttackReleaseProps {
   note: Tone.Unit.Frequency;
   duration: Tone.Unit.Time;
-  time?: Tone.Unit.Time;
+  time: number;
 }
 
 export type Melody = Array<TriggerAttackReleaseProps>;
+
 const synth = new Tone.Synth().toDestination();
-export const PlayBoard: FC<PlayBoardProps> = ({ musicBlocks }) => {
+
+export const PlayBoard: FC<PlayBoardProps> = ({ composition }) => {
   const playTest = (index: number, melody?: Melody) => {
     const now = Tone.now();
     if (!melody) {
@@ -72,6 +82,10 @@ export const PlayBoard: FC<PlayBoardProps> = ({ musicBlocks }) => {
       synth.triggerAttackRelease(BaseNotes[index] ?? 0, "16n", now);
       synth.triggerAttackRelease(BaseNotes[index + 1] ?? 0, "16n", now + 0.1);
       synth.triggerAttackRelease(BaseNotes[index + 2] ?? 0, "16n", now + 0.2);
+    } else {
+      melody.forEach(({ duration, note, time }) => {
+        synth.triggerAttackRelease(note, duration, now + time);
+      });
     }
   };
 
@@ -115,7 +129,8 @@ export const PlayBoard: FC<PlayBoardProps> = ({ musicBlocks }) => {
 
   const playSingleBlock = useCallback(
     (index: number, soundBlockDuration: number) => {
-      playTest(index);
+      //TODO: docelowo zamienić indexy na ID danych przycisków
+      playTest(index, composition.musicBlocks[index].melody);
       setActiveKeys((prev) => [...prev, index]);
 
       setTimeout(() => {
@@ -126,17 +141,21 @@ export const PlayBoard: FC<PlayBoardProps> = ({ musicBlocks }) => {
         });
       }, soundBlockDuration);
     },
-    []
+    [composition.id, composition.musicBlocks]
   );
 
   return (
     <div
       className="playBoard"
-      style={{ gridTemplateColumns: `repeat( ${musicBlocks.length / 2}, 1fr)` }}
+      style={{
+        gridTemplateColumns: `repeat( ${
+          composition.musicBlocks.length / 2
+        }, 1fr)`,
+      }}
     >
-      {musicBlocks.map((block, index) => (
+      {composition.musicBlocks.map((block, index) => (
         <MusicBlockComponent
-          duration={500}
+          duration={block.duration}
           key={index}
           index={index}
           active={activeKeys.includes(index)}
