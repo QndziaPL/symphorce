@@ -7,6 +7,8 @@
     color: white;
     box-shadow: 5px 5px 5px black;
     font-size: 4em;
+    position: relative;
+    width: 100%;
 }
 
 .musicBlock:hover {

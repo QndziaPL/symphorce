@@ -2,6 +2,7 @@ import {
   EvenLengthMusicBlockArray,
   PlayBoard,
 } from "../../components/PlayBoard/PlayBoard";
+import { ScreenWrapper } from "../ScreenWrapper/ScreenWrapper";
 
 const mockMusicBlocks: EvenLengthMusicBlockArray = [
   { id: 1 },
@@ -17,8 +18,8 @@ const mockMusicBlocks: EvenLengthMusicBlockArray = [
 ];
 export const FightScreen = () => {
   return (
-    <div>
+    <ScreenWrapper>
       <PlayBoard musicBlocks={mockMusicBlocks} />
-    </div>
+    </ScreenWrapper>
   );
 };

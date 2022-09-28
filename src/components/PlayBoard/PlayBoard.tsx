@@ -136,6 +136,7 @@ export const PlayBoard: FC<PlayBoardProps> = ({ musicBlocks }) => {
     >
       {musicBlocks.map((block, index) => (
         <MusicBlockComponent
+          duration={500}
           key={index}
           index={index}
           active={activeKeys.includes(index)}

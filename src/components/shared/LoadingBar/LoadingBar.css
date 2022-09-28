@@ -1,0 +1,29 @@
+.loadingBar {
+    background-color: transparent;
+    height: 30px;
+    /*border: 2px solid red;*/
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+    padding: 0 5%;
+
+}
+
+
+.loadingBarExpandingBar {
+    height: 100%;
+    background-color: white;
+    animation-name: expandingBar;
+    /*animation-fill-mode: forwards;*/
+    /*animation-duration: 3s;*/
+    border-radius: 10px;
+}
+
+@keyframes expandingBar {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
