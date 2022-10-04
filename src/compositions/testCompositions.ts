@@ -1,6 +1,7 @@
 import { Composition } from "../components/PlayBoard/PlayBoard";
 
 const composition1: Composition = {
+  title: "Test shitty composition",
   id: 1,
   musicBlocks: [
     {
@@ -75,4 +76,61 @@ const composition1: Composition = {
   ],
 };
 
-export { composition1 };
+const composition2: Composition = {
+  title: "Marvelous masterpiece",
+  id: 2,
+  musicBlocks: [
+    {
+      id: 6,
+      melody: [
+        { note: "A#3", duration: 0.05, time: 0 },
+        { note: "D4", duration: 0.05, time: 0.05 },
+        { note: "F4", duration: 0.05, time: 0.1 },
+        { note: "A#4", duration: 0.05, time: 0.15 },
+        { note: "D5", duration: 0.05, time: 0.2 },
+        { note: "F5", duration: 0.05, time: 0.25 },
+      ],
+      duration: 300,
+    },
+    {
+      id: 6,
+      melody: [
+        { note: "A#3", duration: 0.05, time: 0 },
+        { note: "D4", duration: 0.05, time: 0.05 },
+        { note: "F4", duration: 0.05, time: 0.1 },
+        { note: "A#4", duration: 0.05, time: 0.15 },
+        { note: "D5", duration: 0.05, time: 0.2 },
+        { note: "F5", duration: 0.05, time: 0.25 },
+      ],
+      duration: 300,
+    },
+    {
+      id: 6,
+      melody: [
+        { note: "A#3", duration: 0.05, time: 0 },
+        { note: "D4", duration: 0.05, time: 0.05 },
+        { note: "F4", duration: 0.05, time: 0.1 },
+        { note: "A#4", duration: 0.05, time: 0.15 },
+        { note: "D5", duration: 0.05, time: 0.2 },
+        { note: "F5", duration: 0.05, time: 0.25 },
+      ],
+      duration: 300,
+    },
+    {
+      id: 6,
+      melody: [
+        { note: "A#3", duration: 0.05, time: 0 },
+        { note: "D4", duration: 0.05, time: 0.05 },
+        { note: "F4", duration: 0.05, time: 0.1 },
+        { note: "A#4", duration: 0.05, time: 0.15 },
+        { note: "D5", duration: 0.05, time: 0.2 },
+        { note: "F5", duration: 0.05, time: 0.25 },
+      ],
+      duration: 300,
+    },
+  ],
+};
+
+const compositions = [composition1, composition2];
+
+export default compositions;

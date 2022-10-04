@@ -9,6 +9,7 @@
     font-size: 4em;
     position: relative;
     width: 100%;
+    cursor: pointer;
 }
 
 .musicBlock:hover {

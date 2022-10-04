@@ -1,0 +1,45 @@
+.compositionChanger {
+    height: 150px;
+    background-color: #2d2d2d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.compositionChangerContent {
+    display: flex;
+    align-items: center;
+    height: 80px;
+}
+
+.currentCompositionTitle {
+    height: 100%;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    width: 50vw;
+    min-width: 250px;
+    border-radius: 5px;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 8px 8px 0;
+    display: inline-block;
+    padding: 6px;
+}
+
+.arrow-left {
+    transform: rotate(135deg);
+    margin-left: 4px;
+}
+
+.arrow-right {
+    transform: rotate(315deg);
+    margin-right: 4px;
+}
+

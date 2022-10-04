@@ -36,6 +36,7 @@ export interface MusicBlock {
 }
 
 export interface Composition {
+  title: string;
   musicBlocks: EvenLengthMusicBlockArray;
   id: number;
 }

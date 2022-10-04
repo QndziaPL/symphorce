@@ -1,0 +1,13 @@
+.button {
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.button:hover{
+    scale: 1.1;
+}
