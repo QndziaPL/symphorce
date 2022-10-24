@@ -23,7 +23,7 @@ export const MusicBlockComponent: FC<MusicBlockComponentProps> = ({
       style={{ backgroundColor: active ? "red" : undefined }}
     >
       {labels[index].toUpperCase()}
-      {active && <LoadingBar animationTime={duration} />}
+      <LoadingBar animationTime={duration} active={active} />
     </div>
   );
 };

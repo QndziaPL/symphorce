@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useState } from "react";
 import "./PlayBoard.css";
 import { MusicBlockComponent } from "./components/MusicBlock/MusicBlockComponent";
 import * as Tone from "tone";
+import { getMelodyDuration } from "../../compositions/helpers/getMelodyDuration";
 
 export type EvenLengthMusicBlockArray =
   | [MusicBlock, MusicBlock, MusicBlock, MusicBlock]
@@ -32,7 +33,6 @@ export type EvenLengthMusicBlockArray =
 export interface MusicBlock {
   id: number;
   melody: Melody;
-  duration: number;
 }
 
 export interface Composition {
@@ -64,7 +64,7 @@ export enum BaseNotes {
 
 export interface TriggerAttackReleaseProps {
   note: Tone.Unit.Frequency;
-  duration: Tone.Unit.Time;
+  duration: number;
   time: number;
 }
 
@@ -73,7 +73,7 @@ export type Melody = Array<TriggerAttackReleaseProps>;
 const synth = new Tone.Synth().toDestination();
 
 export const PlayBoard: FC<PlayBoardProps> = ({ composition }) => {
-  const playMelody = (index: number, melody?: Melody) => {
+  const playMelody = (melody?: Melody) => {
     if (!melody) return;
     const now = Tone.now();
     melody.forEach(({ duration, note, time }) => {
@@ -109,9 +109,11 @@ export const PlayBoard: FC<PlayBoardProps> = ({ composition }) => {
   }, [handleKeyDown, handleKeyUp]);
 
   const playSingleBlock = useCallback(
-    (index: number, soundBlockDuration: number) => {
+    (index: number) => {
       //TODO: docelowo zamienić indexy na ID danych przycisków
-      playMelody(index, composition.musicBlocks[index]?.melody);
+      const melody = composition.musicBlocks[index]?.melody;
+      const duration = getMelodyDuration(melody);
+      playMelody(melody);
       setActiveKeys((prev) => [...prev, index]);
 
       setTimeout(() => {
@@ -120,7 +122,7 @@ export const PlayBoard: FC<PlayBoardProps> = ({ composition }) => {
           copy.splice(copy.indexOf(index), 1);
           return copy;
         });
-      }, soundBlockDuration);
+      }, duration);
     },
     [composition]
   );
@@ -131,7 +133,7 @@ export const PlayBoard: FC<PlayBoardProps> = ({ composition }) => {
       keyboardKeysPressed.filter((key) => KeyboardKeys.includes(key)).length
     ) {
       keyboardKeysPressed.forEach((key) => {
-        playSingleBlock(KeyboardKeys.indexOf(key), 500);
+        playSingleBlock(KeyboardKeys.indexOf(key));
       });
     }
   }, [keyboardKeysPressed, playSingleBlock]);
@@ -145,15 +147,18 @@ export const PlayBoard: FC<PlayBoardProps> = ({ composition }) => {
         }, 1fr)`,
       }}
     >
-      {composition.musicBlocks.map((block, index) => (
-        <MusicBlockComponent
-          duration={block.duration}
-          key={index}
-          index={index}
-          active={activeKeys.includes(index)}
-          playSounds={() => playSingleBlock(index, block.duration)}
-        />
-      ))}
+      {composition.musicBlocks.map((block, index) => {
+        const duration = getMelodyDuration(block.melody);
+        return (
+          <MusicBlockComponent
+            duration={duration}
+            key={index}
+            index={index}
+            active={activeKeys.includes(index)}
+            playSounds={() => playSingleBlock(index)}
+          />
+        );
+      })}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 .loadingBar {
     background-color: transparent;
     height: 30px;
-    /*border: 2px solid red;*/
     position: absolute;
     bottom: 5%;
     width: 100%;
@@ -9,13 +8,15 @@
 
 }
 
+.loadingBarActive {
+    opacity: 1;
+}
+
 
 .loadingBarExpandingBar {
     height: 100%;
     background-color: white;
     animation-name: expandingBar;
-    /*animation-fill-mode: forwards;*/
-    /*animation-duration: 3s;*/
     border-radius: 10px;
 }
 

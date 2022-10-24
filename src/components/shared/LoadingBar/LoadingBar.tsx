@@ -6,6 +6,7 @@ export interface LoadingBarProps {
   barColor?: string;
   backgroundColor?: string;
   height?: number;
+  active: boolean;
 }
 
 export const LoadingBar: FC<LoadingBarProps> = ({
@@ -13,16 +14,19 @@ export const LoadingBar: FC<LoadingBarProps> = ({
   barColor,
   backgroundColor,
   height,
+  active,
 }) => {
   return (
     <div className="loadingBar" style={{ backgroundColor, height }}>
-      <div
-        className="loadingBarExpandingBar"
-        style={{
-          animationDuration: `${animationTime}ms`,
-          backgroundColor: barColor,
-        }}
-      />
+      {active && (
+        <div
+          className="loadingBarExpandingBar"
+          style={{
+            animationDuration: `${animationTime}ms`,
+            backgroundColor: barColor,
+          }}
+        />
+      )}
     </div>
   );
 };
